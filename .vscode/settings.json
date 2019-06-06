@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "neon.h": "c"
+        "neon.h": "c",
+        "stdio.h": "c",
+        "get_next_line.h": "c",
+        "sdl.h": "c"
     }
 }

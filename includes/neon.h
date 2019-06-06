@@ -6,17 +6,22 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:35 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/05 17:13:30 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/06 17:36:18 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NEON_H
 # define NEON_H
 
-# include <SDL2/SDL.h>
-
+# include "SDL.h"
+# include "libft.h"
+# include "get_next_line.h"
 # define SCR_WIDTH 800
 # define SCR_HEIGHT 600
+
+# define E_NOFILE -2
+# define E_EMPTY_FILE -3
+# define E_BAD_MAP -4
 
 typedef struct		s_vector2
 {
@@ -46,6 +51,7 @@ typedef struct		s_player
 {
 	t_vector2		pos;
 	t_vector2		dir;
+	float			camera;
 }					t_player;
 
 /*
@@ -58,9 +64,18 @@ typedef struct		s_raycaster
 {
 	t_vector2		plane;
 	t_vector2		raydir;
-	float			camera;
+	
 
 }					t_raycaster;
+
+typedef struct		s_map
+{
+	int				**data;
+	int				width;
+	int				height;
+}					t_map;
+
+
 
 typedef struct		s_game
 {
@@ -70,8 +85,15 @@ typedef struct		s_game
 
 	t_raycaster		raycaster;
 	t_player		player;
+	t_map			map;
 	t_timer			timer;
 
 }					t_game;
+
+
+int			ft_len_2darr(char **arr);
+void		ft_del_list(t_list **lst);
+void		ft_free_2darr(char **arr);
+int			ft_read_map(t_game *game, char *fname);
 
 #endif
