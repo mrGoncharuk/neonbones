@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:02:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/06 18:02:30 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:16:27 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int		ft_is_map_valid(t_game *win)
 		if (win->map.data[0][j] == 0
 			|| win->map.data[win->map.height - 1][j] == 0)
 			return (E_BAD_MAP);
+	win->player.pos.y = win->player.pos.y * WB_SIZE + 32;
+	win->player.pos.x = win->player.pos.x * WB_SIZE + 32;
 	return (0);
 }
 

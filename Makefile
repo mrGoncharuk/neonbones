@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 19:28:21 by mhonchar          #+#    #+#              #
-#    Updated: 2019/06/06 17:48:14 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/06/07 17:38:43 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIB = $(addprefix $(LIBFT_DIR), $(LIB_NAME)) -L./libsdl/lib -lSDL2
 SRC_FILES =		main.c \
 				get_next_line.c \
 				map_reader.c \
-				map_utils.c
+				map_utils.c \
+				caster.c
 
 				
 				
