@@ -1,0 +1,10 @@
+﻿  caster.c
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(32,65): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(33,73): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(52,45): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(64,45): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(78,78): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(105,70): warning C4244:  =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(127,12): warning C4101:  h_step: неиспользованная локальная переменная
+C:\Users\Mr.Bob\source\repos\SDLProject1\src\caster.c(126,12): warning C4101:  v_step: неиспользованная локальная переменная
+  SDLProject1.vcxproj -> C:\Users\Mr.Bob\source\repos\SDLProject1\Debug\SDLProject1.exe

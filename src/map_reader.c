@@ -6,12 +6,12 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:02:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/06 18:02:30 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:16:27 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
-
+#include <stdio.h>
 int			ft_file_review(char *fname)
 {
 	int		fd;
@@ -25,7 +25,7 @@ int			ft_file_review(char *fname)
 	return (0);
 }
 
-int			ft_get_map_info(int fd, t_game *win)
+int			ft_get_map_info(int fd, t_game *game)
 {
 	char	*line;
 	char	**map_data;
@@ -39,40 +39,40 @@ int			ft_get_map_info(int fd, t_game *win)
 		ft_free_2darr(map_data);
 		return (E_BAD_MAP);
 	}
-	win->map.width = ft_atoi(map_data[0]);
-	win->map.height = ft_atoi(map_data[1]);
-	win->player.pos.x = ft_atoi(map_data[2]);
-	win->player.pos.y = ft_atoi(map_data[3]);
+	game->map.width = ft_atoi(map_data[0]);
+	game->map.height = ft_atoi(map_data[1]);
+	game->player.pos.x = ft_atoi(map_data[2]);
+	game->player.pos.y = ft_atoi(map_data[3]);
 	ft_free_2darr(map_data);
-	if (!(win->map.data = (int **)malloc(win->map.height * sizeof(int *) + 1)))
+	if (!(game->map.data = (int **)malloc(game->map.height * sizeof(int *) + 1)))
 		return (-1);
-	win->map.data[win->map.height] = NULL;
+	game->map.data[game->map.height] = NULL;
 	i = -1;
-	while (++i < win->map.height)
-		if (!(win->map.data[i] = (int *)malloc(win->map.width * sizeof(int))))
+	while (++i < game->map.height)
+		if (!(game->map.data[i] = (int *)malloc(game->map.width * sizeof(int))))
 			return (-1);
 	return (0);
 }
 
-int			ft_get_map_data(t_game *win, t_list *f)
+int			ft_get_map_data(t_game *game, t_list *f)
 {
 	int		i;
 	int		j;
 	char	**data;
 
 	i = -1;
-	while (++i < win->map.height)
+	while (++i < game->map.height)
 	{
 		data = ft_strsplit(((char *)f->content), ' ');
-		if (ft_len_2darr(data) != win->map.width)
+		if (ft_len_2darr(data) != game->map.width)
 		{
 			ft_free_2darr(data);
 			return (E_BAD_MAP);
 		}
 		j = -1;
-		while (++j < win->map.width)
+		while (++j < game->map.width)
 		{
-			win->map.data[i][j] = ft_atoi(data[j]);
+			game->map.data[i][j] = ft_atoi(data[j]);
 		}
 		f = f->next;
 		ft_free_2darr(data);
@@ -80,7 +80,7 @@ int			ft_get_map_data(t_game *win, t_list *f)
 	return (0);
 }
 
-int			ft_list_init(t_list **f, t_game *win, int fd)
+int			ft_list_init(t_list **f, t_game *game, int fd)
 {
 	t_list	*next;
 	int		rows;
@@ -100,34 +100,36 @@ int			ft_list_init(t_list **f, t_game *win, int fd)
 		next = next->next;
 		rows++;
 	}
-	if (win->map.height != rows)
+	if (game->map.height != rows)
 		return (E_BAD_MAP);
 	return (0);
 }
 
-int		ft_is_map_valid(t_game *win)
+int		ft_is_map_valid(t_game *game)
 {
 	int		j;
 
-	if (win->player.pos.y > win->map.height || win->player.pos.x > win->map.width ||
-		win->player.pos.y < 0 || win->player.pos.x < 0)
+	if (game->player.pos.y > game->map.height || game->player.pos.x > game->map.width ||
+		game->player.pos.y < 0 || game->player.pos.x < 0)
 		return (E_BAD_MAP);
-	if (win->map.data[(int)(win->player.pos.y) - 1][(int)(win->player.pos.x) - 1] != 0)
+	if (game->map.data[(int)(game->player.pos.y) - 1][(int)(game->player.pos.x) - 1] != 0)
 		return (E_BAD_MAP);
 	j = -1;
-	while (++j < win->map.height)
-		if (win->map.data[j][0] == 0
-			|| win->map.data[j][win->map.width - 1] == 0)
+	while (++j < game->map.height)
+		if (game->map.data[j][0] == 0
+			|| game->map.data[j][game->map.width - 1] == 0)
 			return (E_BAD_MAP);
 	j = -1;
-	while (++j < win->map.width)
-		if (win->map.data[0][j] == 0
-			|| win->map.data[win->map.height - 1][j] == 0)
+	while (++j < game->map.width)
+		if (game->map.data[0][j] == 0
+			|| game->map.data[game->map.height - 1][j] == 0)
 			return (E_BAD_MAP);
+	game->player.pos.y = game->player.pos.y * WB_SIZE + 32;
+	game->player.pos.x = game->player.pos.x * WB_SIZE + 32;
 	return (0);
 }
 
-int			ft_read_map(t_game *win, char *fname)
+int			ft_read_map(t_game *game, char *fname)
 {
 	t_list	*f;
 	int		fd;
@@ -136,21 +138,21 @@ int			ft_read_map(t_game *win, char *fname)
 	if ((ret = ft_file_review(fname)) < 0)
 		return (ret);
 	fd = open(fname, O_RDONLY);
-	if ((ret = ft_get_map_info(fd, win)) < 0)
+	if ((ret = ft_get_map_info(fd, game)) < 0)
 	{
 		close(fd);
 		return (ret);
 	}
-	if ((ret = ft_list_init(&f, win, fd)) < 0)
+	if ((ret = ft_list_init(&f, game, fd)) < 0)
 	{
 		ft_del_list(&f);
 		return (ret);
 	}
-	if ((ret = ft_get_map_data(win, f)) < 0)
+	if ((ret = ft_get_map_data(game, f)) < 0)
 	{
 		ft_del_list(&f);
 		return (ret);
 	}
 	ft_del_list(&f);
-	return (ft_is_map_valid(win));
+	return (ft_is_map_valid(game));
 }

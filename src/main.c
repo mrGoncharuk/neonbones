@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:24 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/06 18:13:03 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:19:57 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,49 +26,71 @@ int		ft_scene_render(t_game* game)
 
 // }
 
-void	ft_mainloop(t_game *game)
-{
-	SDL_Event	event;
-	int			running;
+// void	ft_mainloop(t_game *game)
+// {
+// 	SDL_Event	event;
+// 	int			running;
 
-	SDL_Init(SDL_INIT_VIDEO);
-	game->win = SDL_CreateWindow("NeonBone$$$", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_OPENGL);
-	game->renderer = SDL_CreateRenderer(game->win, -1,
-		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	SDL_SetRenderDrawColor(game->renderer, 255, 0, 0, 255);
-	running = 1;
-	while (running)
-	{
-		while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-		}
-	}
-	SDL_DestroyRenderer(game->renderer);
-	SDL_DestroyWindow(game->win);
-	SDL_Quit();
-}
+// 	SDL_Init(SDL_INIT_VIDEO);
+// 	game->win = SDL_CreateWindow("NeonBone$$$", SDL_WINDOWPOS_CENTERED,
+// 		SDL_WINDOWPOS_CENTERED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_OPENGL);
+// 	game->renderer = SDL_CreateRenderer(game->win, -1,
+// 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+// 	SDL_SetRenderDrawColor(game->renderer, 255, 0, 0, 255);
+// 	running = 1;
+// 	while (running)
+// 	{
+// 		while (SDL_PollEvent(&event))
+// 		{
+// 			if (event.type == SDL_QUIT)
+// 				running = 0;
+// 		}
+// 	}
+// 	SDL_DestroyRenderer(game->renderer);
+// 	SDL_DestroyWindow(game->win);
+// 	SDL_Quit();
+// }
+
+
+
 
 int		main(int argc, char **argv)
 {
 	t_game		game;
 	int			ret;
-	
-	if (argc != 2)
-	{
-		(void)argv;
-		write(1, "lol\n", 4);
-		return (0);
-	}
-	if ((ret = ft_read_map(&game, argv[1])) < 0)
+	int			running;
+	char		fname[] = "test.txt";
+	//if (argc != 2)
+	//{
+	//	(void)argv;
+	//	write(1, "lol\n", 4);
+	//	return (0);
+	//}
+	if ((ret = ft_read_map(&game, (char *)fname)) < 0)
 	{
 		printf ("Error code: %d\n", ret);
-		system("leaks NeonBones");
+		//system("leaks NeonBones");
 		return (0);
 	}
-	ft_mainloop(&game);
+	ft_game_init(&game);
+	SDL_SetRenderDrawColor(game.renderer, 0, 255, 255, 255);
+	running = 1;
+	while (running)
+	{
+		while (SDL_PollEvent(&(game.event)))
+		{
+			if (game.event.type == SDL_QUIT)
+			{
+				running = 0;
+			}
+		}
+
+		SDL_RenderClear(game.renderer);
+
+		SDL_RenderPresent(game.renderer);
+	}
+	ft_wall_finder(&game);
+	//ft_mainloop(&game);
 
 
 
