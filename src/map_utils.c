@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:46:43 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/06 16:01:38 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/23 18:39:39 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	ft_free_2darr(char **arr)
 	int		i;
 
 	i = 0;
+	if (arr == NULL)
+		return ;
 	while (arr[i] != NULL)
 	{
 		free(arr[i]);
 		i++;
 	}
 	free(arr[i]);
-	free(arr);
 }
 
 void	ft_del_list(t_list **lst)
@@ -43,6 +44,8 @@ void	ft_del_list(t_list **lst)
 	t_list	*f;
 	t_list	*next;
 
+	if (lst == NULL)
+		return ;
 	f = *lst;
 	while (f)
 	{
@@ -51,4 +54,17 @@ void	ft_del_list(t_list **lst)
 		free(f);
 		f = next;
 	}
+}
+
+int			ft_file_review(const char *fname)
+{
+	int		fd;
+	char	buf[1];
+
+	if (!(fd = open(fname, O_RDONLY)) || fd < 0 || (read(fd, NULL, 0) == -1))
+		return (E_NOFILE);
+	if (read(fd, buf, 1) == 0)
+		return (E_EMPTY_FILE);
+	close(fd);
+	return (0);
 }

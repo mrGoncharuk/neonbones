@@ -1,0 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 16:48:12 by mhonchar          #+#    #+#             */
+/*   Updated: 2019/06/23 16:53:17 by mhonchar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "neon.h"
+
+void	ft_clean(t_game *game)
+{
+	int		i;
+
+	i = -1;
+	while (++i < TEX_NUM)
+		SDL_FreeSurface(game->surfaces[i]);
+	SDL_FreeSurface(game->scr_surf);
+	SDL_DestroyWindow(game->win);
+	SDL_DestroyRenderer(game->renderer);
+	SDL_Quit();
+	ft_putendl("GG");
+}

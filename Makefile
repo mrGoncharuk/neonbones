@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 19:28:21 by mhonchar          #+#    #+#              #
-#    Updated: 2019/06/07 17:38:43 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/06/23 18:37:16 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,25 +16,38 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 INC_DIR = includes/
 LIBFT_DIR = libft/
-LIB = $(addprefix $(LIBFT_DIR), $(LIB_NAME)) -L./libsdl/lib -lSDL2
+
+
+LIB = $(addprefix $(LIBFT_DIR), $(LIB_NAME)) -L./libsdl/lib -lSDL2 -L./libsdl_image/lib -lSDL2_image
 
 SRC_FILES =		main.c \
 				get_next_line.c \
 				map_reader.c \
 				map_utils.c \
-				caster.c
+				start_init.c \
+				clean_handler.c \
+				event_handler.c \
+				render_handler.c \
+				update_handler.c \
+				move_n_rot.c \
+				caster.c \
+				sdl_pixel_manipulation.c
+
 
 				
 				
 
-HEADERS = $(INC_DIR)neon.h $(LIBFT_DIR)libft.h libsdl/include/SDL2/SDL.h
+HEADERS = 		$(INC_DIR)neon.h \
+				$(LIBFT_DIR)libft.h \
+				libsdl/include/SDL2/SDL.h \
+				libsdl_image/include/SDL2/SDL_image.h
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
 CC = gcc -g
 CFLAGS = -Wall -Werror -Wextra
-INC = -I $(INC_DIR) -I $(LIBFT_DIR) -I libsdl/include/SDL2/
+INC = -I $(INC_DIR) -I $(LIBFT_DIR) -I libsdl/include/SDL2/ -I libsdl_image/include/SDL2/
 C_RED = \033[31m
 C_GREEN = \033[32m
 C_MAGENTA = \033[35m
