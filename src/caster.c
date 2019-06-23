@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 14:06:53 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 18:26:14 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/23 20:10:17 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,10 @@ void	ft_texturing_walls(t_game *game, t_raycaster *rc, t_texturer *tex, int x)
 
 void	caster(t_game *game)
 {
-	t_raycaster	rc;
-	t_texturer	tex;
-	int			x;
+	t_raycaster		rc;
+	t_texturer		tex;
+	t_floorcaster	fc;
+	int				x;
 
 	x = -1;
 	while (++x < SCR_WIDTH)
@@ -132,6 +133,7 @@ void	caster(t_game *game)
 		ft_calc_dist(&rc, game);
 		ft_texturing_calc(game, &rc, &tex);
 		ft_texturing_walls(game, &rc, &tex, x);
+		ft_floor_caster(game, &rc, &tex, &fc, x);
 	}
 	// time_t seconds;
 	// time(&seconds);

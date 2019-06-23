@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:35 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 18:42:20 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/23 20:13:27 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,20 @@ typedef struct	s_texturer
 
 }				t_texturer;
 
+typedef struct	s_floorcaster
+{
+	int 		floor_texx;
+	int			floor_texy;
+	double		floor_wallx;
+	double		floor_wally;
+	double		wall_dist;
+	double		player_dist;
+	double		curr_dist;
+	double 		curr_floorx;
+	double 		curr_floory;
+
+}				t_floorcaster;
+
 /*
 **	Contains player information
 **	pos: player position on map
@@ -142,7 +156,7 @@ void		ft_render(t_game *game);
 void		ft_clean(t_game *game);
 void		ft_game_init(t_game *game);
 void		caster(t_game *game);
-
+void		ft_floor_caster(t_game *game, t_raycaster *rc, t_texturer *tex, t_floorcaster *fc, int x);
 /** **************************************
 **	************ Movement ****************
 *****************************************/
