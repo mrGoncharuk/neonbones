@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:35 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 20:13:27 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:00:09 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "SDL.h"
 # include "SDL_image.h"
+# include "SDL_ttf.h"
 # include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
@@ -36,8 +37,6 @@
 # define E_EMPTY_FILE -3
 # define E_BAD_MAP -4
 
-
-
 typedef struct		s_vector2
 {
 	double				x;
@@ -57,11 +56,12 @@ typedef struct		s_vector3
 	float			z;
 }					t_vector3;
 
-typedef struct		s_timer
+typedef struct		s_fps
 {
-	int				oldtime;
-	int				currtime;
-}					t_timer;
+	Uint32 			startclock;
+	Uint32 			deltaclock;
+	Uint32 			currentfps;
+}					t_fps;
 
 typedef struct		s_raycaster
 {
@@ -89,6 +89,7 @@ typedef struct	s_texturer
 
 typedef struct	s_floorcaster
 {
+	int			x;
 	int 		floor_texx;
 	int			floor_texy;
 	double		floor_wallx;
@@ -127,12 +128,18 @@ typedef struct		s_map
 typedef struct		s_game
 {
 	SDL_Window		*win;
+	TTF_Font		*font;
 	SDL_Event		event;
 	SDL_Renderer	*renderer;
 	SDL_Texture 	*scr_tex;
 	SDL_Surface		*scr_surf;
-	SDL_Surface 	*surfaces[TEX_NUM];
-	t_timer			timer;
+	SDL_Surface 	*surfaces[TEX_NUM + 1];
+	SDL_Surface		*ceiling;
+	SDL_Surface		*notile;
+
+	SDL_Texture		*text_tex;
+	SDL_Rect		text_rect;
+	t_fps			fps;
 	t_player		player;
 	t_map			map;
 	t_vector2		plane;
@@ -148,28 +155,49 @@ int			ft_len_2darr(char **arr);
 void		ft_del_list(t_list **lst);
 void		ft_free_2darr(char **arr);
 int			ft_file_review(const char *fname);
+int			ft_check_map_textures(t_game *game);
 int			ft_read_map(t_game *game, const char *fname);
 
 void		ft_event_handler(t_game *game);
 void		ft_update(t_game *game);
 void		ft_render(t_game *game);
 void		ft_clean(t_game *game);
-void		ft_game_init(t_game *game);
+int			ft_game_init(t_game *game);
+
+/*
+****************************************
+************ Ray Casting ***************
+****************************************
+*/
 void		caster(t_game *game);
-void		ft_floor_caster(t_game *game, t_raycaster *rc, t_texturer *tex, t_floorcaster *fc, int x);
-/** **************************************
-**	************ Movement ****************
-*****************************************/
+void		ft_calc_initial(t_raycaster *rc, t_game *game, int x);
+void		ft_set_steps(t_raycaster *rc, t_player *player);
+void		ft_calc_dist(t_raycaster *rc, t_game *game);
+void		ft_texturing_calc(t_game *game, t_raycaster *rc, t_texturer *tex);
+void		ft_texturing_walls(t_game *game, t_raycaster *rc, t_texturer *tex, int x);
+void		ft_floor_caster(t_game *game, t_raycaster *rc, t_texturer *tex, t_floorcaster *fc);
+void		ft_set_wall_dir(t_floorcaster *fc, t_raycaster *rc, t_texturer *tex);
+void		ft_draw_ceiling(t_game *game, t_texturer *tex, t_floorcaster *fc, int x);
+void		ft_draw_floor(t_game *game, t_texturer *tex, t_floorcaster *fc, int x);
+
+
+/*
+****************************************
+************** Movement ****************
+****************************************
+*/
 void		ft_move_forward(t_game *game);
 void		ft_move_backward(t_game *game);
 void		ft_turn_left(t_game *game);
 void		ft_turn_right(t_game *game);
 
-/** **************************************
-**	**** SDL special functions ***********
-*****************************************/
+/*
+******************************************
+******** SDL special functions ***********
+******************************************
+*/
 void		ft_put_pixel32(SDL_Surface *surface, int x, int y, Uint32 pixel);
 Uint32		ft_get_pixel32(SDL_Surface *surface, int x, int y);
-
+void		ft_create_fps_tex(t_game *game, char *fps);
 
 #endif

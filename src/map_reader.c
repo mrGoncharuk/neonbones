@@ -6,14 +6,14 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:02:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 18:40:51 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:02:14 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
 #include <stdio.h>
 
-int			ft_get_map_info(int fd, t_game *game)
+int			ft_get_map_info(int fd, t_game *g)
 {
 	char	*line;
 	char	**map_data;
@@ -27,17 +27,17 @@ int			ft_get_map_info(int fd, t_game *game)
 		ft_free_2darr(map_data);
 		return (E_BAD_MAP);
 	}
-	game->map.width = ft_atoi(map_data[0]);
-	game->map.height = ft_atoi(map_data[1]);
-	game->player.pos.x = ft_atoi(map_data[2]);
-	game->player.pos.y = ft_atoi(map_data[3]);
+	g->map.width = ft_atoi(map_data[0]);
+	g->map.height = ft_atoi(map_data[1]);
+	g->player.pos.x = ft_atoi(map_data[2]);
+	g->player.pos.y = ft_atoi(map_data[3]);
 	ft_free_2darr(map_data);
-	if (!(game->map.data = (int **)malloc(game->map.height * sizeof(int *) + 1)))
+	if (!(g->map.data = (int **)malloc(g->map.height * sizeof(int *) + 1)))
 		return (-1);
-	game->map.data[game->map.height] = NULL;
+	g->map.data[g->map.height] = NULL;
 	i = -1;
-	while (++i < game->map.height)
-		if (!(game->map.data[i] = (int *)malloc(game->map.width * sizeof(int))))
+	while (++i < g->map.height)
+		if (!(g->map.data[i] = (int *)malloc(g->map.width * sizeof(int))))
 			return (-1);
 	return (0);
 }
@@ -97,10 +97,11 @@ int			ft_is_map_valid(t_game *game)
 {
 	int		j;
 
-	if (game->player.pos.y > game->map.height || game->player.pos.x > game->map.width ||
-		game->player.pos.y < 0 || game->player.pos.x < 0)
+	if (game->player.pos.y > game->map.height || game->player.pos.x >
+		game->map.width || game->player.pos.y < 0 || game->player.pos.x < 0)
 		return (E_BAD_MAP);
-	if (game->map.data[(int)(game->player.pos.y) - 1][(int)(game->player.pos.x) - 1] != 0)
+	if (game->map.data[(int)(game->player.pos.y) - 1]
+		[(int)(game->player.pos.x) - 1] != 0)
 		return (E_BAD_MAP);
 	j = -1;
 	while (++j < game->map.height)
@@ -140,5 +141,5 @@ int			ft_read_map(t_game *game, const char *fname)
 		return (ret);
 	}
 	ft_del_list(&f);
-	return (ft_is_map_valid(game));
+	return (ft_is_map_valid(game) + ft_check_map_textures(game));
 }

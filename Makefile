@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 19:28:21 by mhonchar          #+#    #+#              #
-#    Updated: 2019/06/23 20:10:49 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/06/24 19:33:47 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_DIR = includes/
 LIBFT_DIR = libft/
 
 
-LIB = $(addprefix $(LIBFT_DIR), $(LIB_NAME)) -L./libsdl/lib -lSDL2 -L./libsdl_image/lib -lSDL2_image
+LIB = $(addprefix $(LIBFT_DIR), $(LIB_NAME)) -L./libsdl/lib -lSDL2 -L./libsdl_image/lib -lSDL2_image -L./libsdl_ttf/lib -lSDL2_ttf
 
 SRC_FILES =		main.c \
 				get_next_line.c \
@@ -30,8 +30,9 @@ SRC_FILES =		main.c \
 				render_handler.c \
 				update_handler.c \
 				move_n_rot.c \
-				caster.c \
-				floor_caster.c \
+				rc_loop.c \
+				rc_calculation.c \
+				rc_floor_ceiling.c \
 				sdl_pixel_manipulation.c
 
 
@@ -41,14 +42,15 @@ SRC_FILES =		main.c \
 HEADERS = 		$(INC_DIR)neon.h \
 				$(LIBFT_DIR)libft.h \
 				libsdl/include/SDL2/SDL.h \
-				libsdl_image/include/SDL2/SDL_image.h
+				libsdl_image/include/SDL2/SDL_image.h \
+				libsdl_ttf/include/SDL2/SDL_ttf.h
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
 CC = gcc -g
 CFLAGS = -Wall -Werror -Wextra
-INC = -I $(INC_DIR) -I $(LIBFT_DIR) -I libsdl/include/SDL2/ -I libsdl_image/include/SDL2/
+INC = -I $(INC_DIR) -I $(LIBFT_DIR) -I libsdl/include/SDL2/ -I libsdl_image/include/SDL2/ -I libsdl_ttf/include/SDL2/
 C_RED = \033[31m
 C_GREEN = \033[32m
 C_MAGENTA = \033[35m

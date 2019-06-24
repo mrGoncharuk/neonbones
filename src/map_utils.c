@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 15:46:43 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 18:39:39 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:02:32 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_free_2darr(char **arr)
 		i++;
 	}
 	free(arr[i]);
+	free(arr);
 }
 
 void	ft_del_list(t_list **lst)
@@ -56,7 +57,7 @@ void	ft_del_list(t_list **lst)
 	}
 }
 
-int			ft_file_review(const char *fname)
+int		ft_file_review(const char *fname)
 {
 	int		fd;
 	char	buf[1];
@@ -66,5 +67,21 @@ int			ft_file_review(const char *fname)
 	if (read(fd, buf, 1) == 0)
 		return (E_EMPTY_FILE);
 	close(fd);
+	return (0);
+}
+
+int		ft_check_map_textures(t_game *game)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < game->map.height)
+	{
+		j = -1;
+		while (++j < game->map.width)
+			if (game->map.data[i][j] < 0)
+				return (E_BAD_MAP);
+	}
 	return (0);
 }
