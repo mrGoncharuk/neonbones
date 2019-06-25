@@ -6,12 +6,11 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:31:26 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 19:49:57 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:40:43 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
-#include <stdio.h>
 
 int		ft_load_textures(t_game *game)
 {
@@ -28,15 +27,13 @@ int		ft_load_textures(t_game *game)
 	game->surfaces[6] = IMG_Load("res/purplestone.png");
 	game->surfaces[7] = IMG_Load("res/colorstone.png");
 	game->surfaces[8] = IMG_Load("res/cat.jpg");
-	game->ceiling = IMG_Load("res/nebo.png");
-	
+	game->ceiling = IMG_Load("res/fin_skybox.png");
 	i = -1;
 	while (++i < TEX_NUM)
 		if (game->surfaces[i] == NULL)
 			return (-1);
 	if (!game->scr_surf || !game->ceiling)
 		return (-1);
-	ft_putendl("Textures loaded successful.");
 	return (0);
 }
 
@@ -84,5 +81,9 @@ int		ft_game_init(t_game *game)
 	game->plane.y = 0.66;
 	game->player.move_speed = 0.05;
 	game->player.rot_speed = 0.03;
+	game->skybox_ori = (game->ceiling->w - SCR_WIDTH) / 2;
+	game->texture_compasing = 0;
+	game->player.pos.x -= 0.5;
+	game->player.pos.y -= 0.5;
 	return (0);
 }

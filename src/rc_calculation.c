@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 14:06:53 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 19:50:48 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:18:55 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_calc_dist(t_raycaster *rc, t_game *game)
 			rc->map_coord.y += rc->step.y;
 			rc->side = 1;
 		}
-		if (game->map.data[rc->map_coord.x][rc->map_coord.y] > 0)
+		if (game->map.data[rc->map_coord.y][rc->map_coord.x] > 0)
 			rc->hit = 1;
 	}
 	if (rc->side == 0)
@@ -86,10 +86,10 @@ void	ft_texturing_calc(t_game *game, t_raycaster *rc, t_texturer *tex)
 	tex->draw_end = tex->line_height / 2 + SCR_HEIGHT / 2;
 	if (tex->draw_end >= SCR_HEIGHT)
 		tex->draw_end = SCR_HEIGHT - 1;
-	if ((game->map.data[rc->map_coord.x][rc->map_coord.y] - 1) > TEX_NUM)
+	if ((game->map.data[rc->map_coord.y][rc->map_coord.x] - 1) > TEX_NUM)
 		tex->tex_num = TEX_NUM;
 	else
-		tex->tex_num = game->map.data[rc->map_coord.x][rc->map_coord.y] - 1;
+		tex->tex_num = game->map.data[rc->map_coord.y][rc->map_coord.x] - 1;
 	if (rc->side == 0)
 		tex->wall_hit = game->player.pos.y + rc->wall_dist * rc->ray_dir.y;
 	else
@@ -111,6 +111,8 @@ void	ft_texturing_walls(t_game *game, t_raycaster *rc, t_texturer *tex,
 	Uint32		color;
 
 	y = tex->draw_start - 1;
+	if (game->texture_compasing)
+		ft_select_texture(rc, tex);
 	while (++y < tex->draw_end)
 	{
 		d = (y << 8) - (SCR_HEIGHT << 7) + (tex->line_height << 7);

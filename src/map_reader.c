@@ -6,12 +6,11 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:02:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 20:02:14 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:10:34 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
-#include <stdio.h>
 
 int			ft_get_map_info(int fd, t_game *g)
 {
@@ -98,7 +97,7 @@ int			ft_is_map_valid(t_game *game)
 	int		j;
 
 	if (game->player.pos.y > game->map.height || game->player.pos.x >
-		game->map.width || game->player.pos.y < 0 || game->player.pos.x < 0)
+		game->map.width || game->player.pos.y <= 0 || game->player.pos.x <= 0)
 		return (E_BAD_MAP);
 	if (game->map.data[(int)(game->player.pos.y) - 1]
 		[(int)(game->player.pos.x) - 1] != 0)

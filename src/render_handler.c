@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:46:31 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 19:29:34 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:49:59 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_render(t_game *game)
 {
 	SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
 	SDL_RenderClear(game->renderer);
-	caster(game);
 	game->scr_tex = SDL_CreateTextureFromSurface(game->renderer,
 		game->scr_surf);
 	SDL_RenderCopy(game->renderer, game->scr_tex, NULL, NULL);

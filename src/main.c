@@ -6,12 +6,10 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:24 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 20:04:37 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:58:55 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <time.h>
 #include "neon.h"
 
 void	ft_mainloop(t_game *game)
@@ -42,8 +40,8 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		(void)argv;
-		ft_putendl("Usage: ./Neonbones maps/[map_name]");
+		ft_putendl("Usage: ./NeonBones maps/[map_name]");
+		system("leaks NeonBones");
 		return (0);
 	}
 	if ((ret = ft_read_map(&game, argv[1]) < 0))
@@ -51,12 +49,15 @@ int		main(int argc, char **argv)
 		ft_putstr("Error code: ");
 		ft_putnbr(ret);
 		ft_putchar('\n');
+		system("leaks NeonBones");
 		return (0);
 	}
 	if (ft_game_init(&game) < 0)
 	{
+		ft_putstr("Error while game initialization: ");
 		return (-1);
 	}
 	ft_mainloop(&game);
+	system("leaks NeonBones");
 	return (0);
 }

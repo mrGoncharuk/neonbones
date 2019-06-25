@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 19:01:30 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 19:20:09 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:15:02 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,19 @@ void	ft_floor_caster(t_game *game, t_raycaster *rc, t_texturer *tex,
 	fc->player_dist = 0;
 	if (tex->draw_end < 0)
 		tex->draw_end = SCR_HEIGHT;
-	ft_draw_ceiling(game, tex, fc, x);
 	ft_draw_floor(game, tex, fc, x);
+}
+
+void	ft_create_skybox(t_game *game)
+{
+	SDL_Rect ceiling_rect;
+	SDL_Rect scr_rect;
+
+	scr_rect.x = 0;
+	scr_rect.y = 0;
+	ceiling_rect.x = 0 + game->skybox_ori;
+	ceiling_rect.y = 0;
+	ceiling_rect.w = SCR_WIDTH + game->skybox_ori;
+	ceiling_rect.h = SCR_HEIGHT / 2;
+	SDL_BlitSurface(game->ceiling, &ceiling_rect, game->scr_surf, &scr_rect);
 }

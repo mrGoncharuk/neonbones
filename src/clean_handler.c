@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:48:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 18:07:17 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:57:15 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	ft_clean(t_game *game)
 	SDL_DestroyRenderer(game->renderer);
 	TTF_Quit();
 	SDL_Quit();
+	ft_free_2darr((char**)(game->map.data));
 	ft_putendl("GG");
 }

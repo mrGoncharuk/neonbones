@@ -6,11 +6,23 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 18:53:13 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/24 19:20:42 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:28:17 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
+
+void	ft_select_texture(t_raycaster *rc, t_texturer *tex)
+{
+	if (rc->side == 0 && rc->ray_dir.x > 0)
+		tex->tex_num = 1;
+	if (rc->side == 0 && rc->ray_dir.x < 0)
+		tex->tex_num = 2;
+	if (rc->side == 1 && rc->ray_dir.y > 0)
+		tex->tex_num = 3;
+	if (rc->side == 1 && rc->ray_dir.y < 0)
+		tex->tex_num = 4;
+}
 
 void	caster(t_game *game)
 {
