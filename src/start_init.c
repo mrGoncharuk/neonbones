@@ -6,11 +6,25 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:31:26 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 19:40:43 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:49:49 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "neon.h"
+
+int		ft_load_steer_textures(t_game *game)
+{
+	if (sdl_texture_manager(game->renderer, &(game->steering[0]),
+							"res/steer_left.png") < 0)
+		return (-1);
+	if (sdl_texture_manager(game->renderer, &(game->steering[1]),
+							"res/steering_bar.png") < 0)
+		return (-1);
+	if (sdl_texture_manager(game->renderer, &(game->steering[2]),
+							"res/steer_right.png") < 0)
+		return (-1);
+	return (0);
+}
 
 int		ft_load_textures(t_game *game)
 {
@@ -34,6 +48,8 @@ int		ft_load_textures(t_game *game)
 			return (-1);
 	if (!game->scr_surf || !game->ceiling)
 		return (-1);
+	if (ft_load_steer_textures(game) < 0)
+		return (-1);
 	return (0);
 }
 
@@ -42,7 +58,7 @@ int		ft_s_sdl_init(t_game *game)
 	int		success;
 
 	success = 1;
-	if (SDL_Init(SDL_INIT_VIDEO) == 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0)
 	{
 		game->win = SDL_CreateWindow("NeonBone$$$", SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED, SCR_WIDTH, SCR_HEIGHT, SDL_WINDOW_OPENGL);
@@ -66,11 +82,26 @@ int		ft_s_sdl_init(t_game *game)
 	return (0);
 }
 
+int		ft_load_music(t_game *game)
+{
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1)
+	{
+		printf("Open audio Error: %s\n", SDL_GetError());
+		return (-1);
+	}
+	game->background_sound = Mix_LoadMUS("res/Death_Grips_Hustle_Bones.ogg");
+	if (game->background_sound == NULL)
+		printf("Load muisc Error: %s\n", SDL_GetError());
+	return (0);
+}
+
 int		ft_game_init(t_game *game)
 {
 	if (ft_s_sdl_init(game) < 0)
 		return (-1);
 	if (ft_load_textures(game) < 0)
+		return (-1);
+	if (ft_load_music(game) < 0)
 		return (-1);
 	game->fps.currentfps = 0;
 	game->fps.deltaclock = 0;
@@ -85,5 +116,7 @@ int		ft_game_init(t_game *game)
 	game->texture_compasing = 0;
 	game->player.pos.x -= 0.5;
 	game->player.pos.y -= 0.5;
+	game->st_wheel_pos = 1;
+	//ft_init_vehicle(&(game->moto));
 	return (0);
 }

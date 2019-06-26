@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:46:31 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 19:49:59 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 19:46:25 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ void	wipe_surface(SDL_Surface *surface)
 	SDL_UnlockSurface(surface);
 }
 
+void	ft_render_steering_bar(t_game *game)
+{
+	SDL_RenderCopy(game->renderer, game->steering[game->st_wheel_pos], NULL,
+			&((SDL_Rect){200,
+						400,
+						SCR_WIDTH / 2, 300}));
+}
+
 void	ft_render(t_game *game)
 {
 	SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
@@ -56,6 +64,7 @@ void	ft_render(t_game *game)
 		game->scr_surf);
 	SDL_RenderCopy(game->renderer, game->scr_tex, NULL, NULL);
 	SDL_RenderCopy(game->renderer, game->text_tex, NULL, &(game->text_rect));
+	ft_render_steering_bar(game);
 	wipe_surface(game->scr_surf);
 	SDL_DestroyTexture(game->text_tex);
 	SDL_DestroyTexture(game->scr_tex);

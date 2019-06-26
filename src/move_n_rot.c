@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 13:52:04 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 20:56:01 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:50:35 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_move_forward(t_game *game)
 	if (game->map.data[(int)(game->player.pos.y + 3 * game->player.dir.y *
 		game->player.move_speed)][(int)(game->player.pos.x)] == 0)
 		game->player.pos.y += game->player.dir.y * game->player.move_speed;
+	// game->moto.acc_input = 1;
 }
 
 void	ft_move_backward(t_game *game)
@@ -51,6 +52,7 @@ void	ft_turn_right(t_game *game)
 		game->skybox_ori = 5;
 	else
 		game->skybox_ori += 5;
+	game->st_wheel_pos = 2;
 }
 
 void	ft_turn_left(t_game *game)
@@ -72,4 +74,5 @@ void	ft_turn_left(t_game *game)
 		game->skybox_ori = 2995;
 	else
 		game->skybox_ori -= 5;
+	game->st_wheel_pos = 0;
 }

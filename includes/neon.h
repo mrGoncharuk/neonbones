@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:35 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 19:29:24 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:51:15 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "SDL.h"
 # include "SDL_image.h"
 # include "SDL_ttf.h"
+# include "SDL_mixer.h"
 # include "libft.h"
 # include "get_next_line.h"
 # include <math.h>
@@ -117,6 +118,18 @@ typedef struct		s_player
 	int				height;
 }					t_player;
 
+// typedef struct	s_vehicle
+// {
+// 	float		lateral_friction_factor;	
+// 	float		backward_friction_factor;
+// 	float		acc_power;		//acc_factor
+// 	float		acc_input;
+// 	t_vector2	acc_vec;
+// 	t_vector2	vel_vec;
+// 	t_vector2	max_speed;
+
+// }				t_vehicle;
+
 typedef struct		s_map
 {
 	int				**data;
@@ -135,12 +148,16 @@ typedef struct		s_game
 	SDL_Surface		*surfaces[TEX_NUM + 1];
 	SDL_Surface		*ceiling;
 	SDL_Surface		*notile;
-
+	SDL_Texture		*steering[3];
+	int				st_wheel_pos;
 	SDL_Texture		*text_tex;
 	SDL_Rect		text_rect;
+
+	Mix_Music		*background_sound;
 	t_fps			fps;
 	t_player		player;
 	t_map			map;
+	// t_vehicle		moto;
 	t_vector2		plane;
 	int				running;
 	int				**textures;
@@ -156,7 +173,7 @@ int					ft_check_map_textures(t_game *game);
 int					ft_read_map(t_game *game, const char *fname);
 
 void				ft_event_handler(t_game *game);
-void				ft_update(t_game *game);
+void				ft_update(t_game *game, int dt);
 void				ft_render(t_game *game);
 void				ft_clean(t_game *game);
 int					ft_game_init(t_game *game);
@@ -188,6 +205,10 @@ void				ft_move_forward(t_game *game);
 void				ft_move_backward(t_game *game);
 void				ft_turn_left(t_game *game);
 void				ft_turn_right(t_game *game);
+// void				ft_ride(t_game *game, t_vehicle *moto, int dt);
+// void				ft_init_vehicle(t_vehicle *moto);
+
+
 
 /*
 ******************************************
@@ -197,5 +218,6 @@ void				ft_turn_right(t_game *game);
 void				ft_put_pixel32(SDL_Surface *surface, int x, int y, Uint32 pixel);
 Uint32				ft_get_pixel32(SDL_Surface *surface, int x, int y);
 void				ft_create_fps_tex(t_game *game, char *fps);
+int					sdl_texture_manager(SDL_Renderer *renderer, SDL_Texture **tex, const char *tname);
 
 #endif

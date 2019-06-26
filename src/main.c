@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:48:24 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 19:58:55 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 21:22:35 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ void	ft_mainloop(t_game *game)
 {
 	const int	frame_delay = 1000 / 60;
 
+	Mix_PlayMusic(game->background_sound, 1);
 	while (game->running)
 	{
 		game->fps.startclock = SDL_GetTicks();
 		ft_event_handler(game);
-		ft_update(game);
+		ft_update(game, game->fps.deltaclock);
 		ft_create_fps_tex(game, ft_itoa(game->fps.currentfps));
 		ft_render(game);
 		game->fps.deltaclock = SDL_GetTicks() - game->fps.startclock;

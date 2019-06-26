@@ -6,11 +6,12 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 17:52:29 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/23 18:03:24 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/26 19:44:26 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "SDL.h"
+#include "SDL_image.h"
 
 Uint32	ft_get_pixel32(SDL_Surface *surface, int x, int y)
 {
@@ -63,4 +64,22 @@ void	ft_put_pixel32(SDL_Surface *surface, int x, int y, Uint32 pixel)
 	}
 	else if (surface->format->BytesPerPixel == 4)
 		*(Uint32 *)p = pixel;
+}
+
+int		sdl_texture_manager(SDL_Renderer *renderer, SDL_Texture **tex,
+							const char *tname)
+{
+	SDL_Surface		*temp_surf;
+
+	temp_surf = IMG_Load(tname);
+	if (temp_surf == NULL)
+		return (-1);
+	*tex = SDL_CreateTextureFromSurface(renderer, temp_surf);
+	if (*tex == NULL)
+	{
+		SDL_FreeSurface(temp_surf);
+		return (-1);
+	}
+	SDL_FreeSurface(temp_surf);
+	return (0);
 }
