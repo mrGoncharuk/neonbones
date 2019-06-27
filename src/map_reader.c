@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:02:12 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 20:10:34 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/27 20:03:42 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int			ft_get_map_data(t_game *game, t_list *f)
 		j = -1;
 		while (++j < game->map.width)
 		{
-			game->map.data[i][j] = ft_atoi(data[j]);
+			if (ft_atoi(data[j]) == 1)
+				game->map.data[i][j] = ft_get_rand_tile();
+			else
+				game->map.data[i][j] = ft_atoi(data[j]);
 		}
 		f = f->next;
 		ft_free_2darr(data);

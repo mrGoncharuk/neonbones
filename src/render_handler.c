@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:46:31 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/26 19:46:25 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/27 21:01:53 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void	wipe_surface(SDL_Surface *surface)
 void	ft_render_steering_bar(t_game *game)
 {
 	SDL_RenderCopy(game->renderer, game->steering[game->st_wheel_pos], NULL,
-			&((SDL_Rect){200,
-						400,
-						SCR_WIDTH / 2, 300}));
+			&((SDL_Rect){SCR_WIDTH / 2 - game->st_wheel_w / 6,
+						SCR_HEIGHT / 2 + game->st_wheel_h / 10,
+						game->st_wheel_w / 3,
+						game->st_wheel_h / 3}));
 }
 
 void	ft_render(t_game *game)

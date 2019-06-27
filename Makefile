@@ -6,7 +6,7 @@
 #    By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/15 19:28:21 by mhonchar          #+#    #+#              #
-#    Updated: 2019/06/26 21:53:19 by mhonchar         ###   ########.fr        #
+#    Updated: 2019/06/27 20:08:29 by mhonchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ SRC_FILES =		main.c \
 				rc_loop.c \
 				rc_calculation.c \
 				rc_floor_ceiling.c \
-				sdl_pixel_manipulation.c 
+				sdl_pixel_manipulation.c \
+				start_init_std.c \
+				texture_utils.c
 
 
 				

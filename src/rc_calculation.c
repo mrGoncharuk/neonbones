@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 14:06:53 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/25 20:18:55 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/27 20:02:08 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,15 @@ void	ft_texturing_calc(t_game *game, t_raycaster *rc, t_texturer *tex)
 	if ((game->map.data[rc->map_coord.y][rc->map_coord.x] - 1) > TEX_NUM)
 		tex->tex_num = TEX_NUM;
 	else
+	{
 		tex->tex_num = game->map.data[rc->map_coord.y][rc->map_coord.x] - 1;
+	}
 	if (rc->side == 0)
 		tex->wall_hit = game->player.pos.y + rc->wall_dist * rc->ray_dir.y;
 	else
 		tex->wall_hit = game->player.pos.x + rc->wall_dist * rc->ray_dir.x;
 	tex->wall_hit -= (int)(tex->wall_hit);
-	tex->tex_hit = (int)(tex->wall_hit * (double)TEXWIDTH);
+	tex->tex_hit = (int)(tex->wall_hit * (double)(TEXWIDTH));
 	if (rc->side == 0 && rc->ray_dir.x > 0)
 		tex->tex_hit = TEXWIDTH - tex->tex_hit - 1;
 	if (rc->side == 1 && rc->ray_dir.y < 0)
