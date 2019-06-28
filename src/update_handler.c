@@ -6,7 +6,7 @@
 /*   By: mhonchar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 16:55:37 by mhonchar          #+#    #+#             */
-/*   Updated: 2019/06/27 19:59:19 by mhonchar         ###   ########.fr       */
+/*   Updated: 2019/06/28 15:56:28 by mhonchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	ft_accelerate(t_game *game)
 		2 * game->player.dir.x * ft_coll_fac(game->moto.speed))] == 0)
 		game->player.pos.x += game->player.dir.x * game->moto.speed;
 	else
-		game->moto.speed = 0;
+		game->moto.speed *= 0.08;
 	if (game->map.data[(int)(game->player.pos.y + 2 * game->player.dir.y *
 		ft_coll_fac(game->moto.speed))][(int)(game->player.pos.x)] == 0)
 		game->player.pos.y += game->player.dir.y * game->moto.speed;
 	else
-		game->moto.speed = 0;
+		game->moto.speed *= 0.08;
 	game->moto.speed *= game->moto.friction;
 	if (ft_abs(game->moto.speed) <= 0.0001)
 		game->moto.speed = 0;
