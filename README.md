@@ -10,11 +10,11 @@ This project was designed like old-school games using ray-casting(e.g Doom Doom2
 __*Ubuntu:*__
 
 ```bash
-sudo apt-get install libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
-git clone https://github.com/mrGoncharuk/neonbones.git
-cd neonbones
-make
-./neonbones maps/race1.txt
+- sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+- git clone https://github.com/mrGoncharuk/neonbones.git
+- cd neonbones
+- make
+- ./neonbones maps/race1.txt
 ```
 
 __*MacOS:*__
