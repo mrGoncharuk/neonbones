@@ -6,6 +6,16 @@ If you have bones why not to feel speed with them! Feel lamp neon lighters, andr
 This project was designed like old-school games using ray-casting(e.g Doom Doom2).
 
 **Installation and launch:**
+__*Ubuntu:*__
+
+```bash
+sudo apt-get install libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
+```
+
+__*MacOS:*__
+
+All ready for use. Just type **make**.
+
 * `git clone https://github.com/mrGoncharuk/neonbones.git`
 * `cd neonbones`
 * `make`
