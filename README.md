@@ -12,13 +12,17 @@ __*Ubuntu:*__
 ```bash
 sudo apt-get install libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
-```git clone https://github.com/mrGoncharuk/neonbones.git
+```bash
+git clone https://github.com/mrGoncharuk/neonbones.git
 
-```cd neonbones
+```bash
+cd neonbones
 
-```make
+```bash
+make
 
-```./neonbones maps/race1.txt
+```bash
+./neonbones maps/race1.txt
 
 
 __*MacOS:*__
