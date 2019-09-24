@@ -16,3 +16,8 @@ This project was designed like old-school games using ray-casting(e.g Doom Doom2
 * `Q - change textures`
 * `Esc - exit`
 
+**Features:**
+* `Ray-casting engine`
+* `Hi-rez texures`
+* `Skybox`
+* `Vehicle physics`
