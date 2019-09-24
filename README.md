@@ -11,7 +11,10 @@ __*Ubuntu:*__
 ```bash
 sudo apt-get install libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
-
+```git clone https://github.com/mrGoncharuk/neonbones.git```
+```cd neonbones```
+```make```
+```./neonbones maps/race1.txt```
 __*MacOS:*__
 
 All ready for use. Just type **make**.
