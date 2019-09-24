@@ -19,13 +19,11 @@ make
 
 __*MacOS:*__
 
-```git clone https://github.com/mrGoncharuk/neonbones.git
-```
-```cd neonbones
-```
-```make
-```
-```./neonbones maps/race1.txt
+```bash
+- git clone https://github.com/mrGoncharuk/neonbones.git
+- cd neonbones
+- make
+- ./neonbones maps/race1.txt
 ```
 
 **Keys:**
