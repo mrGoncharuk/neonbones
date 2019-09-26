@@ -14,7 +14,7 @@ __*Ubuntu:*__
 - git clone https://github.com/mrGoncharuk/neonbones.git
 - cd neonbones
 - make
-- ./neonbones maps/race1.txt
+- ./NeonBones maps/race1.txt
 ```
 
 __*MacOS:*__
@@ -23,7 +23,7 @@ __*MacOS:*__
 - git clone https://github.com/mrGoncharuk/neonbones.git
 - cd neonbones
 - make
-- ./neonbones maps/race1.txt
+- ./NeonBones maps/race1.txt
 ```
 
 **Keys:**
