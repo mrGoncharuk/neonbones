@@ -14,7 +14,7 @@
 
 void	ft_mainloop(t_game *game)
 {
-	const int	frame_delay = 1000 / 60;
+	const Uint32	frame_delay = 1000 / 60;
 
 	Mix_PlayMusic(game->background_sound, 1);
 	while (game->running)
